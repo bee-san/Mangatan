@@ -39,6 +39,11 @@ jobs:
       - name: Analyze
         run: flutter analyze --no-fatal-infos --no-fatal-warnings
 
+      # Exercise the Linux host image codec used by desktop builds. This guards
+      # against animated GIF pages being flattened to a static first frame.
+      - name: Verify desktop animated GIF decoding
+        run: flutter test test/modules/manga/reader/animated_gif_desktop_test.dart
+
   build-android:
     name: Build (Android debug)
     runs-on: ubuntu-latest
